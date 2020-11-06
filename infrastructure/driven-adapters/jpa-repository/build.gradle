@@ -1,0 +1,13 @@
+dependencies {
+    implementation project(':model')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.reactivecommons.utils:object-mapper-api:0.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.11.3'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
+    compile group: 'org.springframework', name: 'org.springframework.orm', version: '3.2.2.RELEASE'
+
+    runtime 'com.h2database:h2'
+    testCompile 'org.reactivecommons.utils:object-mapper:0.1.0'
+}
