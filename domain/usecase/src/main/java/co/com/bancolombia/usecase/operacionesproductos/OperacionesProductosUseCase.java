@@ -19,4 +19,14 @@ public class OperacionesProductosUseCase {
         }
         return products;
     }
+
+    public Product getProduct(Long id) {
+        Product product =  iProductRepository.getProduct(id);
+        return product;
+    }
+
+    public Product createProduct(Product product) {
+        Product productCreate =  iProductRepository.createProduct(product);
+        return productCreate;
+    }
 }

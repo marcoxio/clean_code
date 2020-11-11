@@ -27,4 +27,11 @@ public class EntityCategory {
                 .name(entityCategory.getName())
                 .build();
     }
+
+    public static EntityCategory modelToEntity(Category category) {
+        return EntityCategory.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
+    }
 }

@@ -58,6 +58,18 @@ public class EntityProduct {
                 .build();
     }
 
+    public static EntityProduct modelToEntity(Product product) {
+        return  EntityProduct.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .stock(product.getStock())
+                .price(product.getPrice())
+                .status(product.getStatus())
+                .createAt(product.getCreateAt())
+                .category(EntityCategory.modelToEntity(product.getCategory()))
+                .build();
+    }
 
     public static List<Product> entityToModelList(List<EntityProduct> entityProductList) {
         return entityProductList.stream()
@@ -65,6 +77,8 @@ public class EntityProduct {
                 .collect(Collectors.toList());
 
     }
+
+
 
 
 }

@@ -5,11 +5,10 @@ import co.com.bancolombia.usecase.operacionesproductos.OperacionesProductosUseCa
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,18 @@ public class ApiRest {
         return "HelloWorld";
     }
 
-    @GetMapping
+    @GetMapping("/products")
     public ResponseEntity<List<Product>> listProduct(@RequestParam(name = "categoryId", required = false) Long categoryId){
         return ResponseEntity.ok(operacionesProductosUseCase.listAllProduct(categoryId));
+    }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> productById(@PathVariable Long id){
+        return ResponseEntity.ok(operacionesProductosUseCase.getProduct(id));
+    }
+
+    @PostMapping("/product")
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, BindingResult result) {
+        return ResponseEntity.ok(operacionesProductosUseCase.createProduct(product));
     }
 }

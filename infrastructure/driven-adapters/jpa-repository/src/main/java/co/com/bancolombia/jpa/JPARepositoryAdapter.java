@@ -7,6 +7,7 @@ import co.com.bancolombia.model.product.gateways.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -32,7 +33,10 @@ public class JPARepositoryAdapter implements ProductRepository
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        product.setStatus("CREATED");
+        product.setCreateAt(new Date());
+        EntityProduct productCreate = (EntityProduct) iJPARepository.save(EntityProduct.modelToEntity(product));
+        return EntityProduct.entityToModel(productCreate);
     }
 
     @Override
