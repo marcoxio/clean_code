@@ -1,5 +1,6 @@
 package co.com.bancolombia.jpa;
 
+import co.com.bancolombia.jpa.entity.EntityCategory;
 import co.com.bancolombia.jpa.entity.EntityProduct;
 import co.com.bancolombia.model.category.Category;
 import co.com.bancolombia.model.product.Product;
@@ -25,6 +26,8 @@ public class JPARepositoryAdapter implements ProductRepository
        return EntityProduct.entityToModelList(entityProductList);
     }
 
+
+
     @Override
     public Product getProduct(Long id) {
         EntityProduct entityProductList = (EntityProduct) iJPARepository.findById(id).orElse(null);
@@ -41,17 +44,27 @@ public class JPARepositoryAdapter implements ProductRepository
 
     @Override
     public Product updateProduct(Product product) {
-        return null;
+        Product productDB = getProduct(product.getId());
+        productDB.setName(product.getName());
+        productDB.setDescription(product.getDescription());
+        productDB.setCategory(product.getCategory());
+        productDB.setPrice(product.getPrice());
+        EntityProduct productUpdate = (EntityProduct) iJPARepository.save(EntityProduct.modelToEntity(product));
+        return EntityProduct.entityToModel(productUpdate);
     }
 
     @Override
     public Product deleteProduct(Long id) {
-        return null;
+        Product productDB = getProduct(id);
+        productDB.setStatus("DELETED");
+        EntityProduct entityProductDelete = (EntityProduct) iJPARepository.findById(id).orElse(null);
+        return EntityProduct.entityToModel(entityProductDelete);
     }
 
     @Override
     public List<Product> findByCategory(Category category) {
-        return null;
+        List<EntityProduct> entityCategoryList = (List<EntityProduct>) iJPARepository.findByCategory(EntityCategory.modelToEntity(category));
+        return EntityProduct.entityToModelList(entityCategoryList);
     }
 
     @Override

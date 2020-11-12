@@ -29,4 +29,19 @@ public class OperacionesProductosUseCase {
         Product productCreate =  iProductRepository.createProduct(product);
         return productCreate;
     }
+
+    public Product updateProduct(Product product) {
+        Product productUpdate = iProductRepository.updateProduct(product);
+        return productUpdate;
+    }
+
+    public  Product deleteProduct(Long id) {
+        Product productDelete = iProductRepository.deleteProduct(id);
+        return productDelete;
+    }
+
+    public List<Product> findByCategory(Category category) {
+        List<Product> productCategory = iProductRepository.findByCategory(category);
+        return productCategory;
+    }
 }

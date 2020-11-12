@@ -1,12 +1,16 @@
 package co.com.bancolombia.model.product;
 
 import co.com.bancolombia.model.category.Category;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder(toBuilder = true)
 public class Product {
     private Long id;

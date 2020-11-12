@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class ApiRest {
+public class ProductContoller {
     private final OperacionesProductosUseCase operacionesProductosUseCase;
 
     @GetMapping(path = "/hello")
@@ -37,5 +37,16 @@ public class ApiRest {
     @PostMapping("/product")
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, BindingResult result) {
         return ResponseEntity.ok(operacionesProductosUseCase.createProduct(product));
+    }
+
+    @PutMapping(value = "product/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+        product.setId(id);
+        return ResponseEntity.ok(operacionesProductosUseCase.updateProduct(product));
+    }
+
+    @DeleteMapping(value = "product/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(operacionesProductosUseCase.deleteProduct(id));
     }
 }
