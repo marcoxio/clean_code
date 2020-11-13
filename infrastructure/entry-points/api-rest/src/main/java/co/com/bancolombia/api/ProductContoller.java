@@ -1,5 +1,7 @@
 package co.com.bancolombia.api;
 
+import co.com.bancolombia.jpa.commons.ConvertProduct;
+import co.com.bancolombia.jpa.entity.EntityProduct;
 import co.com.bancolombia.model.product.Product;
 import co.com.bancolombia.usecase.operacionesproductos.OperacionesProductosUseCase;
 import lombok.AllArgsConstructor;
@@ -35,8 +37,8 @@ public class ProductContoller {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, BindingResult result) {
-        return ResponseEntity.ok(operacionesProductosUseCase.createProduct(product));
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody EntityProduct entityProduct) {
+        return ResponseEntity.ok(operacionesProductosUseCase.createProduct(ConvertProduct.entityToModel(entityProduct)));
     }
 
     @PutMapping(value = "product/{id}")

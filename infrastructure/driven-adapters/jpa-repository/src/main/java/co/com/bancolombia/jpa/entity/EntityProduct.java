@@ -9,8 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,7 @@ public class EntityProduct {
     private Long id;
 
     @NotEmpty(message = "El nombre no debe ser vacío")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Este campo name solo admite letras")
     private String name;
     private String description;
     @Positive(message = "El stock debe ser mayor que cero")
@@ -43,40 +46,9 @@ public class EntityProduct {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @Valid
     private EntityCategory category;
 
-    public static Product entityToModel(EntityProduct entityProduct) {
-        return Product.builder()
-                .id(entityProduct.getId())
-                .name(entityProduct.getName())
-                .description(entityProduct.getDescription())
-                .stock(entityProduct.getStock())
-                .price(entityProduct.getPrice())
-                .status(entityProduct.getStatus())
-                .createAt(entityProduct.getCreateAt())
-                .category(entityProduct.getCategory().entityToModel(entityProduct.getCategory()))
-                .build();
-    }
-
-    public static EntityProduct modelToEntity(Product product) {
-        return  EntityProduct.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .stock(product.getStock())
-                .price(product.getPrice())
-                .status(product.getStatus())
-                .createAt(product.getCreateAt())
-                .category(EntityCategory.modelToEntity(product.getCategory()))
-                .build();
-    }
-
-    public static List<Product> entityToModelList(List<EntityProduct> entityProductList) {
-        return entityProductList.stream()
-                .map(entityProduct -> entityProduct.entityToModel(entityProduct))
-                .collect(Collectors.toList());
-
-    }
 
 
 

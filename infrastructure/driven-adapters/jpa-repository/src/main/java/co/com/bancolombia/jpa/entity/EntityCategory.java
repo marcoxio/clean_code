@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "tbl_categories")
@@ -19,19 +22,9 @@ public class EntityCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @NotEmpty(message = "El campo name Category no puede ir vacio")
     private String name;
 
-    public static Category entityToModel(EntityCategory entityCategory) {
-        return Category.builder()
-                .id(entityCategory.getId())
-                .name(entityCategory.getName())
-                .build();
-    }
 
-    public static EntityCategory modelToEntity(Category category) {
-        return EntityCategory.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
 }

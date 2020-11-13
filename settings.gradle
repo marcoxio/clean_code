@@ -8,7 +8,9 @@ project(':model').projectDir = file('./domain/model')
 project(':usecase').projectDir = file('./domain/usecase')
 include ':jpa-repository'
 project(':jpa-repository').projectDir = file('./infrastructure/driven-adapters/jpa-repository')
-include ':jpa-repository-commons'
-project(':jpa-repository-commons').projectDir = file('./infrastructure/helpers/jpa-repository-commons')
+include ':common'
+project(':common').projectDir = file('./infrastructure/helpers/common')
+//include ':jpa-repository-commons'
+//project(':jpa-repository-commons').projectDir = file('./infrastructure/helpers/jpa-repository-commons')
 include ':api-rest'
 project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
